@@ -1,7 +1,7 @@
 # Android-SmartWebView Compact
-Compact module version from https://github.com/mgks/Android-SmartWebView
+Disclaimer: This is a module version of Android Smart WebView which can be found in here: https://github.com/mgks/Android-SmartWebView.
 
-Disclaimer: This is a module version of Android Smart WebView. I only make the original code more compact and ready to use as android module.
+I Do not own the whole code. I only make the original code more compact and ready to use as android module.
 
 ## Original Library Overview:
 This project is developed to help you create Hybrid Android applications with just webview. Hybrid app comes in between webview and native forms, with this project you can embed any existing webpage or setup an Offline HTML/CSS/Javascript based project.
