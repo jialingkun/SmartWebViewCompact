@@ -71,7 +71,7 @@ activity_main.xml
         android:id="@+id/msw_progress"
         style="@android:style/Widget.ProgressBar.Horizontal"
         android:layout_width="fill_parent"
-        android:layout_height="7dip"
+        android:layout_height="5dip"
         android:progressDrawable="@drawable/progress_style"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
