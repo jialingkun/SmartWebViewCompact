@@ -217,3 +217,5 @@ public class FragmentActivity extends Fragment {
     }
 }
 ```
+
+Note: OnBackPressed function currently not supported inside Fragment. Try a workaround by calling the method in activity in which the fragment being called.
