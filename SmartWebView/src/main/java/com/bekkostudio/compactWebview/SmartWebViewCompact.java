@@ -53,24 +53,24 @@ import static android.content.Context.DOWNLOAD_SERVICE;
 
 public class SmartWebViewCompact {
 
-    static boolean ASWP_JSCRIPT     = SmartWebView.ASWP_JSCRIPT;
-    static boolean ASWP_FUPLOAD     = SmartWebView.ASWP_FUPLOAD;
-    static boolean ASWP_CAMUPLOAD   = SmartWebView.ASWP_CAMUPLOAD;
-    static boolean ASWP_ONLYCAM		= SmartWebView.ASWP_ONLYCAM;
-    static boolean ASWP_MULFILE     = SmartWebView.ASWP_MULFILE;
-    static boolean ASWP_LOCATION    = SmartWebView.ASWP_LOCATION;
-    static boolean ASWP_RATINGS     = SmartWebView.ASWP_RATINGS;
-    static boolean ASWP_PBAR        = SmartWebView.ASWP_PBAR;
-    static boolean ASWP_ZOOM        = SmartWebView.ASWP_ZOOM;
-    static boolean ASWP_SFORM       = SmartWebView.ASWP_SFORM;
-    static boolean ASWP_OFFLINE		= SmartWebView.ASWP_OFFLINE;
-    static boolean ASWP_EXTURL		= SmartWebView.ASWP_EXTURL;
+    public boolean ASWP_JSCRIPT     = DefaultSetting.ASWP_JSCRIPT;
+    public boolean ASWP_FUPLOAD     = DefaultSetting.ASWP_FUPLOAD;
+    public boolean ASWP_CAMUPLOAD   = DefaultSetting.ASWP_CAMUPLOAD;
+    public boolean ASWP_ONLYCAM	    = DefaultSetting.ASWP_ONLYCAM;
+    public boolean ASWP_MULFILE     = DefaultSetting.ASWP_MULFILE;
+    public boolean ASWP_LOCATION    = DefaultSetting.ASWP_LOCATION;
+    public boolean ASWP_RATINGS     = DefaultSetting.ASWP_RATINGS;
+    public boolean ASWP_PBAR        = DefaultSetting.ASWP_PBAR;
+    public boolean ASWP_ZOOM        = DefaultSetting.ASWP_ZOOM;
+    public boolean ASWP_SFORM       = DefaultSetting.ASWP_SFORM;
+    public boolean ASWP_OFFLINE	    = DefaultSetting.ASWP_OFFLINE;
+    public boolean ASWP_EXTURL		= DefaultSetting.ASWP_EXTURL;
 
     //Configuration variables
-    private static String ASWV_URL      = SmartWebView.ASWV_URL;
-    private static String ASWV_F_TYPE   = SmartWebView.ASWV_F_TYPE;
+    public String ASWV_URL      = DefaultSetting.ASWV_URL;
+    public String ASWV_F_TYPE   = DefaultSetting.ASWV_F_TYPE;
 
-    public static String ASWV_HOST		= aswm_host(ASWV_URL);
+    public String ASWV_HOST		= aswm_host(ASWV_URL);
 
     //Careful with these variable names if altering
     WebView asw_view;
@@ -427,7 +427,7 @@ public class SmartWebViewCompact {
     }
 
     //Getting host name
-    public static String aswm_host(String url){
+    public String aswm_host(String url){
         if (url == null || url.length() == 0) {
             return "";
         }
@@ -526,9 +526,9 @@ public class SmartWebViewCompact {
         if (DetectConnection.isInternetAvailable(activity)) {
             AppRate.with(activity)
                     .setStoreType(StoreType.GOOGLEPLAY)     //default is Google Play, other option is Amazon App Store
-                    .setInstallDays(SmartWebView.ASWR_DAYS)
-                    .setLaunchTimes(SmartWebView.ASWR_TIMES)
-                    .setRemindInterval(SmartWebView.ASWR_INTERVAL)
+                    .setInstallDays(DefaultSetting.ASWR_DAYS)
+                    .setLaunchTimes(DefaultSetting.ASWR_TIMES)
+                    .setRemindInterval(DefaultSetting.ASWR_INTERVAL)
                     .setTitle(R.string.rate_dialog_title)
                     .setMessage(R.string.rate_dialog_message)
                     .setTextLater(R.string.rate_dialog_cancel)

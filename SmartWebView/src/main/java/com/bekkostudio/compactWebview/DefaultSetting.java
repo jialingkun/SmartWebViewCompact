@@ -8,7 +8,7 @@ package com.bekkostudio.compactWebview;
 * Giving right credit to developers encourages them to create better projects, just want you to know that :)
 */
 
-public class SmartWebView {
+public class DefaultSetting {
 
 	//Permission variables
 	public static boolean ASWP_JSCRIPT     = true;     //enable JavaScript for webview
