@@ -13,7 +13,7 @@ Android Smart WebView gathers all necessary information needed to make any simpl
 If you want to simply implement a webview through this project, you can try to import the module and use it directly in your project Activity (Like MainActivity). Follow this step for a quick start:
 
 ### STEP 1 : Import Module in your project
-* Since I haven't publish the dependency, download this repository through this link: https://github.com/jialingkun/SmartWebViewCompact/archive/master.zip
+* Since I haven't publish the dependency, clone or download this repository through this link: https://github.com/jialingkun/SmartWebViewCompact/archive/master.zip
 * Create your New Android Studio Project.
 * Click File > New > Import Module.
 * Enter the location of the module directory (SmartWebView Folder) then click Finish.
