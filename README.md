@@ -1,5 +1,5 @@
 # Android-SmartWebView Compact
-Disclaimer: This is a module version of Android Smart WebView which can be found in here: https://github.com/mgks/Android-SmartWebView.
+Disclaimer: This is a module version of Android-SmartWebView which can be found in here: https://github.com/mgks/Android-SmartWebView.
 
 I Do not own the whole code. I only make the original code more compact and ready to use as android module.
 
@@ -16,6 +16,19 @@ If you want to simply implement a webview through this project, you can try to i
 * Create your New Android Studio Project.
 * Click File > New > Import Module.
 * Enter the location of the module directory (SmartWebView Folder) then click Finish.
+* Make sure the library is listed at the top of your settings.gradle file, as shown here 
+```
+include ':app',':SmartWebView'
+```
+* Open the app module's build.gradle file and add a new line to the dependencies block as shown in the following snippet:
+```
+dependencies {
+    implementation project(":SmartWebView")
+}
+```
+* Click Sync Project with Gradle Files.
+
+Learn more about adding android library as depedency here: https://developer.android.com/studio/projects/android-library#AddDependency
 
 ### STEP 2 : Manifest Permission
 
@@ -58,7 +71,7 @@ activity_main.xml
         android:id="@+id/msw_progress"
         style="@android:style/Widget.ProgressBar.Horizontal"
         android:layout_width="fill_parent"
-        android:layout_height="7dip"
+        android:layout_height="5dip"
         android:progressDrawable="@drawable/progress_style"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
