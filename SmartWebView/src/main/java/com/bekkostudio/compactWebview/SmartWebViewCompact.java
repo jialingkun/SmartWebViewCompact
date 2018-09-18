@@ -208,7 +208,6 @@ public class SmartWebViewCompact {
 
         if (Build.VERSION.SDK_INT >= 21) {
             activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            activity.getWindow().setStatusBarColor(activity.getResources().getColor(R.color.colorPrimaryDark));
             asw_view.setLayerType(View.LAYER_TYPE_HARDWARE, null);
             webSettings.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
         } else if (Build.VERSION.SDK_INT >= 19) {

@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         smartWebViewCompact.ASWP_EXTURL      = false;     //open external url with default browser instead of app webview
 
         //Configuration variables
-        smartWebViewCompact.ASWV_URL          = "https://m.facebook.com"; //complete URL of your website or webpage
+        smartWebViewCompact.ASWV_URL          = "https://google.com"; //complete URL of your website or webpage
         smartWebViewCompact.ASWV_F_TYPE       = "*/*";  //to upload any file type using "*/*"; check file type references for more
 
         //Rating system variables
