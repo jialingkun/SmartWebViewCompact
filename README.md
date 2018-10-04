@@ -120,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
             smartWebViewCompact.ASWP_ROOT        = true;    //False if you need to use webview in other intent activity
 
             //Configuration variables
-            smartWebViewCompact.ASWV_URL          = "https://m.facebook.com"; //complete URL of your website or webpage
+            smartWebViewCompact.ASWV_URL          = "https://google.com"; //complete URL of your website or webpage
             smartWebViewCompact.ASWV_F_TYPE       = "*/*";  //to upload any file type using "*/*"; check file type references for more
 
             //Rating system variables
@@ -188,7 +188,7 @@ public class FragmentActivity extends Fragment {
         smartWebViewCompact.ASWP_ROOT        = true;    //False if you need to use webview in other intent activity
 
         //Configuration variables
-        smartWebViewCompact.ASWV_URL          = "https://meditasi123.blogspot.com/"; //complete URL of your website or webpage
+        smartWebViewCompact.ASWV_URL          = "https://google.com"; //complete URL of your website or webpage
         smartWebViewCompact.ASWV_F_TYPE       = "*/*";  //to upload any file type using "*/*"; check file type references for more
 
         //Rating system variables
