@@ -65,6 +65,7 @@ public class SmartWebViewCompact {
     public boolean ASWP_SFORM       = DefaultSetting.ASWP_SFORM;
     public boolean ASWP_OFFLINE	    = DefaultSetting.ASWP_OFFLINE;
     public boolean ASWP_EXTURL		= DefaultSetting.ASWP_EXTURL;
+    public boolean ASWP_ROOT        = DefaultSetting.ASWP_ROOT;
 
     //Configuration variables
     public String ASWV_URL      = DefaultSetting.ASWV_URL;
@@ -141,7 +142,7 @@ public class SmartWebViewCompact {
         Log.w("WRITE_PERM = ",Manifest.permission.WRITE_EXTERNAL_STORAGE);
 
         //Prevent the app from being started again when it is still alive in the background
-        if (!activity.isTaskRoot()) {
+        if (ASWP_ROOT && !activity.isTaskRoot()) {
             activity.finish();
             return;
         }

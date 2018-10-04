@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
         smartWebViewCompact.ASWP_SFORM       = true;    //save form cache and auto-fill information
         smartWebViewCompact.ASWP_OFFLINE     = false;    //whether the loading webpages are offline or online
         smartWebViewCompact.ASWP_EXTURL      = true;     //open external url with default browser instead of app webview
+        smartWebViewCompact.ASWP_ROOT        = true;    //False if you need to use webview in other intent activity
 
         //Configuration variables
         smartWebViewCompact.ASWV_URL          = "https://google.com"; //complete URL of your website or webpage
