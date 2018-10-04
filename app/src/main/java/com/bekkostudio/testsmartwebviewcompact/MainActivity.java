@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
         smartWebViewCompact.ASWP_ZOOM        = false;    //zoom control for webpages view
         smartWebViewCompact.ASWP_SFORM       = true;    //save form cache and auto-fill information
         smartWebViewCompact.ASWP_OFFLINE     = false;    //whether the loading webpages are offline or online
-        smartWebViewCompact.ASWP_EXTURL      = false;     //open external url with default browser instead of app webview
+        smartWebViewCompact.ASWP_EXTURL      = true;     //open external url with default browser instead of app webview
 
         //Configuration variables
         smartWebViewCompact.ASWV_URL          = "https://google.com"; //complete URL of your website or webpage

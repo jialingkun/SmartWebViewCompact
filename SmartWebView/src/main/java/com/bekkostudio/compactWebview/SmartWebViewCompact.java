@@ -70,8 +70,6 @@ public class SmartWebViewCompact {
     public String ASWV_URL      = DefaultSetting.ASWV_URL;
     public String ASWV_F_TYPE   = DefaultSetting.ASWV_F_TYPE;
 
-    public String ASWV_HOST		= aswm_host(ASWV_URL);
-
     //Careful with these variable names if altering
     WebView asw_view;
     ProgressBar asw_progress;
@@ -417,7 +415,7 @@ public class SmartWebViewCompact {
             activity.startActivity(intent);
 
             //Opening external URLs in android default web browser
-        } else if (ASWP_EXTURL && !aswm_host(url).equals(ASWV_HOST)) {
+        } else if (ASWP_EXTURL && !aswm_host(url).contains(aswm_host(ASWV_URL))) {
             aswm_view(url,true);
         } else {
             a = false;
