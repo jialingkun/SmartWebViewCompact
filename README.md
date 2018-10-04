@@ -185,6 +185,7 @@ public class FragmentActivity extends Fragment {
         smartWebViewCompact.ASWP_SFORM       = true;    //save form cache and auto-fill information
         smartWebViewCompact.ASWP_OFFLINE     = false;    //whether the loading webpages are offline or online
         smartWebViewCompact.ASWP_EXTURL      = false;     //open external url with default browser instead of app webview
+        smartWebViewCompact.ASWP_ROOT        = true;    //False if you need to use webview in other intent activity
 
         //Configuration variables
         smartWebViewCompact.ASWV_URL          = "https://meditasi123.blogspot.com/"; //complete URL of your website or webpage
