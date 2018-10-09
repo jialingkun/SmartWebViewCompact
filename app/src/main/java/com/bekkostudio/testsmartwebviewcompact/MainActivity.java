@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.webkit.WebView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 
 import com.bekkostudio.compactWebview.DefaultSetting;
 import com.bekkostudio.compactWebview.SmartWebViewCompact;
@@ -29,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
         smartWebViewCompact.ASWP_JSCRIPT     = true;     //enable JavaScript for webview
         smartWebViewCompact.ASWP_FUPLOAD     = true;     //upload file from webview
         smartWebViewCompact.ASWP_CAMUPLOAD   = true;     //enable upload from camera for photos
-        smartWebViewCompact.ASWP_ONLYCAM        = false;	//incase you want only camera files to upload
+        smartWebViewCompact.ASWP_ONLYCAM     = false;	//incase you want only camera files to upload
         smartWebViewCompact.ASWP_MULFILE     = false;    //upload multiple files in webview
         smartWebViewCompact.ASWP_LOCATION    = false;     //track GPS locations
         smartWebViewCompact.ASWP_RATINGS     = false;     //show ratings dialog; auto configured, edit method get_rating() for customizations
@@ -39,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
         smartWebViewCompact.ASWP_OFFLINE     = false;    //whether the loading webpages are offline or online
         smartWebViewCompact.ASWP_EXTURL      = true;     //open external url with default browser instead of app webview
         smartWebViewCompact.ASWP_ROOT        = true;    //False if you need to use webview in other intent activity
+        smartWebViewCompact.ASWP_SPLASH      = true;    //enable splash screen
 
         //Configuration variables
         smartWebViewCompact.ASWV_URL          = "https://google.com"; //complete URL of your website or webpage
@@ -49,7 +51,10 @@ public class MainActivity extends AppCompatActivity {
         DefaultSetting.ASWR_TIMES           = 10;       //overall request launch times being ignored
         DefaultSetting.ASWR_INTERVAL        = 2;        //reminding users to rate after days interval
 
-        smartWebViewCompact.onCreate(this,(WebView) findViewById(R.id.msw_view),(ProgressBar) findViewById(R.id.msw_progress));
+        WebView webView = (WebView) findViewById(R.id.msw_view);
+        ProgressBar progressBar = (ProgressBar) findViewById(R.id.msw_progress);
+        RelativeLayout splashScreen = (RelativeLayout) findViewById(R.id.logosplash); //logosplash or fullsplash
+        smartWebViewCompact.onCreate(this,webView,progressBar,splashScreen);
     }
 
     @Override

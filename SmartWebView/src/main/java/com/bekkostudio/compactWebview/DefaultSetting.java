@@ -24,7 +24,7 @@ public class DefaultSetting {
 	public static boolean ASWP_OFFLINE     = false;    //whether the loading webpages are offline or online
 	public static boolean ASWP_EXTURL      = false;     //open external url with default browser instead of app webview
 	public static boolean ASWP_ROOT			= true;     //Webview activity on root only
-
+	public static boolean ASWP_SPLASH		= true;     //enable splash screen
 
 	//Configuration variables
 	public static String ASWV_URL          = "https://google.com"; //complete URL of your website or webpage

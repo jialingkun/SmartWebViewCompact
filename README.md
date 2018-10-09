@@ -13,7 +13,7 @@ Android Smart WebView gathers all necessary information needed to make any simpl
 If you want to simply implement a webview through this project, you can try to import the module and use it directly in your project Activity (Like MainActivity). Follow this step for a quick start:
 
 ### STEP 1 : Import Module in your project
-* Since I haven't publish the dependency, clone or download this repository through this link: https://github.com/jialingkun/SmartWebViewCompact/archive/master.zip
+* Clone or download this repository through this link: https://github.com/jialingkun/SmartWebViewCompact/archive/master.zip
 * Create your New Android Studio Project.
 * Click File > New > Import Module.
 * Enter the location of the module directory (SmartWebView Folder) then click Finish.
@@ -58,6 +58,7 @@ Your XML Layout should look like this:
 
 activity_main.xml
  ```xml
+<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -69,16 +70,32 @@ activity_main.xml
         android:id="@+id/msw_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
+
+    <RelativeLayout
+        android:id="@+id/logosplash"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#ffffff"
+        android:visibility="gone">
+        <ImageView
+            android:id="@+id/centerlogo"
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:layout_centerInParent="true"
+            android:src="@drawable/logo"/>
+    </RelativeLayout>
+
     <ProgressBar
         android:id="@+id/msw_progress"
         style="@android:style/Widget.ProgressBar.Horizontal"
         android:layout_width="fill_parent"
-        android:layout_height="5dip"
+        android:layout_height="6dip"
         android:progressDrawable="@drawable/progress_style"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:visibility="visible" />
+
 </RelativeLayout>
 ```
 
@@ -100,36 +117,40 @@ public class MainActivity extends AppCompatActivity {
 
 
     @Override
-        protected void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            setContentView(R.layout.activity_main);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
 
-            //Permission variables
-            smartWebViewCompact.ASWP_JSCRIPT     = true;     //enable JavaScript for webview
-            smartWebViewCompact.ASWP_FUPLOAD     = true;     //upload file from webview
-            smartWebViewCompact.ASWP_CAMUPLOAD   = true;     //enable upload from camera for photos
-            smartWebViewCompact.ASWP_ONLYCAM        = false;	//incase you want only camera files to upload
-            smartWebViewCompact.ASWP_MULFILE     = false;    //upload multiple files in webview
-            smartWebViewCompact.ASWP_LOCATION    = false;     //track GPS locations
-            smartWebViewCompact.ASWP_RATINGS     = false;     //show ratings dialog; auto configured, edit method get_rating() for customizations
-            smartWebViewCompact.ASWP_PBAR        = true;     //show progress bar in app
-            smartWebViewCompact.ASWP_ZOOM        = false;    //zoom control for webpages view
-            smartWebViewCompact.ASWP_SFORM       = true;    //save form cache and auto-fill information
-            smartWebViewCompact.ASWP_OFFLINE     = false;    //whether the loading webpages are offline or online
-            smartWebViewCompact.ASWP_EXTURL      = false;     //open external url with default browser instead of app webview
-            smartWebViewCompact.ASWP_ROOT        = true;    //False if you need to use webview in other intent activity
+        //Permission variables
+        smartWebViewCompact.ASWP_JSCRIPT     = true;     //enable JavaScript for webview
+        smartWebViewCompact.ASWP_FUPLOAD     = true;     //upload file from webview
+        smartWebViewCompact.ASWP_CAMUPLOAD   = true;     //enable upload from camera for photos
+        smartWebViewCompact.ASWP_ONLYCAM     = false;   //incase you want only camera files to upload
+        smartWebViewCompact.ASWP_MULFILE     = false;    //upload multiple files in webview
+        smartWebViewCompact.ASWP_LOCATION    = false;     //track GPS locations
+        smartWebViewCompact.ASWP_RATINGS     = false;     //show ratings dialog; auto configured, edit method get_rating() for customizations
+        smartWebViewCompact.ASWP_PBAR        = true;     //show progress bar in app
+        smartWebViewCompact.ASWP_ZOOM        = false;    //zoom control for webpages view
+        smartWebViewCompact.ASWP_SFORM       = true;    //save form cache and auto-fill information
+        smartWebViewCompact.ASWP_OFFLINE     = false;    //whether the loading webpages are offline or online
+        smartWebViewCompact.ASWP_EXTURL      = true;     //open external url with default browser instead of app webview
+        smartWebViewCompact.ASWP_ROOT        = true;    //False if you need to use webview in other intent activity
+        smartWebViewCompact.ASWP_SPLASH      = true;    //enable splash screen
 
-            //Configuration variables
-            smartWebViewCompact.ASWV_URL          = "https://google.com"; //complete URL of your website or webpage
-            smartWebViewCompact.ASWV_F_TYPE       = "*/*";  //to upload any file type using "*/*"; check file type references for more
+        //Configuration variables
+        smartWebViewCompact.ASWV_URL          = "https://google.com"; //complete URL of your website or webpage
+        smartWebViewCompact.ASWV_F_TYPE       = "*/*";  //to upload any file type using "*/*"; check file type references for more
 
-            //Rating system variables
-            DefaultSetting.ASWR_DAYS            = 3;        //after how many days of usage would you like to show the dialoge
-            DefaultSetting.ASWR_TIMES           = 10;       //overall request launch times being ignored
-            DefaultSetting.ASWR_INTERVAL        = 2;        //reminding users to rate after days interval
+        //Rating system variables
+        DefaultSetting.ASWR_DAYS            = 3;        //after how many days of usage would you like to show the dialoge
+        DefaultSetting.ASWR_TIMES           = 10;       //overall request launch times being ignored
+        DefaultSetting.ASWR_INTERVAL        = 2;        //reminding users to rate after days interval
 
-            smartWebViewCompact.onCreate(this,(WebView) findViewById(R.id.msw_view),(ProgressBar) findViewById(R.id.msw_progress));
-        }
+        WebView webView = (WebView) findViewById(R.id.msw_view);
+        ProgressBar progressBar = (ProgressBar) findViewById(R.id.msw_progress);
+        RelativeLayout splashScreen = (RelativeLayout) findViewById(R.id.logosplash); //logosplash
+        smartWebViewCompact.onCreate(this,webView,progressBar,splashScreen);
+    }
 
     @Override
     public void onBackPressed() {
@@ -176,7 +197,7 @@ public class FragmentActivity extends Fragment {
         smartWebViewCompact.ASWP_JSCRIPT     = true;     //enable JavaScript for webview
         smartWebViewCompact.ASWP_FUPLOAD     = true;     //upload file from webview
         smartWebViewCompact.ASWP_CAMUPLOAD   = true;     //enable upload from camera for photos
-        smartWebViewCompact.ASWP_ONLYCAM        = false;	//incase you want only camera files to upload
+        smartWebViewCompact.ASWP_ONLYCAM        = false;    //incase you want only camera files to upload
         smartWebViewCompact.ASWP_MULFILE     = false;    //upload multiple files in webview
         smartWebViewCompact.ASWP_LOCATION    = false;     //track GPS locations
         smartWebViewCompact.ASWP_RATINGS     = false;     //show ratings dialog; auto configured, edit method get_rating() for customizations
@@ -186,9 +207,10 @@ public class FragmentActivity extends Fragment {
         smartWebViewCompact.ASWP_OFFLINE     = false;    //whether the loading webpages are offline or online
         smartWebViewCompact.ASWP_EXTURL      = false;     //open external url with default browser instead of app webview
         smartWebViewCompact.ASWP_ROOT        = true;    //False if you need to use webview in other intent activity
+        smartWebViewCompact.ASWP_SPLASH      = false;    //enable splash screen
 
         //Configuration variables
-        smartWebViewCompact.ASWV_URL          = "https://google.com"; //complete URL of your website or webpage
+        smartWebViewCompact.ASWV_URL          = "https://google.com/"; //complete URL of your website or webpage
         smartWebViewCompact.ASWV_F_TYPE       = "*/*";  //to upload any file type using "*/*"; check file type references for more
 
         //Rating system variables
@@ -196,9 +218,10 @@ public class FragmentActivity extends Fragment {
         DefaultSetting.ASWR_TIMES           = 10;       //overall request launch times being ignored
         DefaultSetting.ASWR_INTERVAL        = 2;        //reminding users to rate after days interval
 
-        ProgressBar progressBar = view.findViewById(R.id.msw_progress);
-        WebView webView =view.findViewById(R.id.msw_view);
-        smartWebViewCompact.onCreate(getActivity(),webView,progressBar);
+        WebView webView = (WebView) view.findViewById(R.id.msw_view);
+        ProgressBar progressBar = (ProgressBar) view.findViewById(R.id.msw_progress);
+        RelativeLayout splashScreen = (RelativeLayout) view.findViewById(R.id.logosplash); //logosplash
+        smartWebViewCompact.onCreate(getActivity(),webView,progressBar,splashScreen);
 
         return view;
     }

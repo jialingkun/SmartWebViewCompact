@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 
 import com.bekkostudio.compactWebview.DefaultSetting;
 import com.bekkostudio.compactWebview.SmartWebViewCompact;
@@ -42,9 +43,11 @@ public class FragmentActivity extends Fragment {
         smartWebViewCompact.ASWP_SFORM       = true;    //save form cache and auto-fill information
         smartWebViewCompact.ASWP_OFFLINE     = false;    //whether the loading webpages are offline or online
         smartWebViewCompact.ASWP_EXTURL      = false;     //open external url with default browser instead of app webview
+        smartWebViewCompact.ASWP_ROOT        = true;    //False if you need to use webview in other intent activity
+        smartWebViewCompact.ASWP_SPLASH      = false;    //enable splash screen
 
         //Configuration variables
-        smartWebViewCompact.ASWV_URL          = "https://meditasi123.blogspot.com/"; //complete URL of your website or webpage
+        smartWebViewCompact.ASWV_URL          = "https://google.com/"; //complete URL of your website or webpage
         smartWebViewCompact.ASWV_F_TYPE       = "*/*";  //to upload any file type using "*/*"; check file type references for more
 
         //Rating system variables
@@ -52,9 +55,10 @@ public class FragmentActivity extends Fragment {
         DefaultSetting.ASWR_TIMES           = 10;       //overall request launch times being ignored
         DefaultSetting.ASWR_INTERVAL        = 2;        //reminding users to rate after days interval
 
-        ProgressBar progressBar = view.findViewById(R.id.msw_progress);
-        WebView webView =view.findViewById(R.id.msw_view);
-        smartWebViewCompact.onCreate(getActivity(),webView,progressBar);
+        WebView webView = (WebView) view.findViewById(R.id.msw_view);
+        ProgressBar progressBar = (ProgressBar) view.findViewById(R.id.msw_progress);
+        RelativeLayout splashScreen = (RelativeLayout) view.findViewById(R.id.logosplash); //logosplash or fullsplash
+        smartWebViewCompact.onCreate(getActivity(),webView,progressBar,splashScreen);
 
         return view;
     }

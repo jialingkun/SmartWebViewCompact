@@ -39,6 +39,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import java.io.File;
@@ -66,6 +67,7 @@ public class SmartWebViewCompact {
     public boolean ASWP_OFFLINE	    = DefaultSetting.ASWP_OFFLINE;
     public boolean ASWP_EXTURL		= DefaultSetting.ASWP_EXTURL;
     public boolean ASWP_ROOT        = DefaultSetting.ASWP_ROOT;
+    public boolean ASWP_SPLASH      = DefaultSetting.ASWP_SPLASH;
 
     //Configuration variables
     public String ASWV_URL      = DefaultSetting.ASWV_URL;
@@ -74,6 +76,7 @@ public class SmartWebViewCompact {
     //Careful with these variable names if altering
     WebView asw_view;
     ProgressBar asw_progress;
+    RelativeLayout asw_splash;
     Activity activity;
     //TextView asw_loading_text;
     NotificationManager asw_notification;
@@ -134,7 +137,7 @@ public class SmartWebViewCompact {
     }
 
     @SuppressLint({"SetJavaScriptEnabled", "WrongViewCast"})
-    public void onCreate(Activity activity_param, WebView asw_view_param, ProgressBar asw_progress_param) {
+    public void onCreate(Activity activity_param, WebView asw_view_param, ProgressBar asw_progress_param, RelativeLayout asw_splash_param) {
 
         activity = activity_param;
 
@@ -149,6 +152,10 @@ public class SmartWebViewCompact {
         asw_progress = asw_progress_param;
         if (!ASWP_PBAR) {
             asw_progress.setVisibility(View.GONE);
+        }
+        asw_splash = asw_splash_param; //splash screen
+        if (ASWP_SPLASH){
+            asw_splash.setVisibility(View.VISIBLE);
         }
         //asw_loading_text = findViewById(R.id.msw_loading_text);
         Handler handler = new Handler();
@@ -334,6 +341,9 @@ public class SmartWebViewCompact {
         public void onPageFinished(WebView view, String url) {
             //findViewById(R.id.msw_welcome).setVisibility(View.GONE);
             //findViewById(R.id.msw_view).setVisibility(View.VISIBLE);
+            if (ASWP_SPLASH){
+                asw_splash.setVisibility(View.GONE);
+            }
         }
         //For android below API 23
         @SuppressWarnings("deprecation")
