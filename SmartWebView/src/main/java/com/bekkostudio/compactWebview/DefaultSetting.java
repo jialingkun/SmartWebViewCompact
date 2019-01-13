@@ -27,7 +27,7 @@ public class DefaultSetting {
 	public static boolean ASWP_SPLASH		= true;     //enable splash screen
 
 	//Configuration variables
-	public static String ASWV_URL          = "https://google.com"; //complete URL of your website or webpage
+	public static String ASWV_URL          = "https://bekkostudio.com"; //complete URL of your website or webpage
 	public static String ASWV_F_TYPE       = "*/*";  //to upload any file type using "*/*"; check file type references for more
 
 	//Rating system variables
