@@ -169,7 +169,7 @@ public class SmartWebViewCompact {
         get_info();
 
         //Getting GPS location of device if given permission
-        if(!check_permission(1)){
+        if(ASWP_LOCATION && !check_permission(1)){
             ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, loc_perm);
         }
         get_location();
@@ -184,6 +184,8 @@ public class SmartWebViewCompact {
         }
         webSettings.setSaveFormData(ASWP_SFORM);
         webSettings.setSupportZoom(ASWP_ZOOM);
+        webSettings.setBuiltInZoomControls(ASWP_ZOOM);
+        webSettings.setDisplayZoomControls(false);
         webSettings.setGeolocationEnabled(ASWP_LOCATION);
         webSettings.setAllowFileAccess(true);
         webSettings.setAllowFileAccessFromFileURLs(true);
@@ -246,53 +248,57 @@ public class SmartWebViewCompact {
             }
             //Handling input[type="file"] requests for android API 21+
             public boolean onShowFileChooser(WebView webView, ValueCallback<Uri[]> filePathCallback, FileChooserParams fileChooserParams){
-                get_file();
-                if(ASWP_FUPLOAD) {
-                    if (asw_file_path != null) {
-                        asw_file_path.onReceiveValue(null);
-                    }
-                    asw_file_path = filePathCallback;
-                    Intent takePictureIntent = null;
-                    if (ASWP_CAMUPLOAD) {
-                        takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                        if (takePictureIntent.resolveActivity(activity.getPackageManager()) != null) {
-                            File photoFile = null;
-                            try {
-                                photoFile = create_image();
-                                takePictureIntent.putExtra("PhotoPath", asw_cam_message);
-                            } catch (IOException ex) {
-                                Log.e(TAG, "Image file creation failed", ex);
-                            }
-                            if (photoFile != null) {
-                                asw_cam_message = "file:" + photoFile.getAbsolutePath();
-                                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photoFile));
-                            } else {
-                                takePictureIntent = null;
+                if (check_permission(2) && check_permission(3)) {
+                    if (ASWP_FUPLOAD) {
+                        if (asw_file_path != null) {
+                            asw_file_path.onReceiveValue(null);
+                        }
+                        asw_file_path = filePathCallback;
+                        Intent takePictureIntent = null;
+                        if (ASWP_CAMUPLOAD) {
+                            takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                            if (takePictureIntent.resolveActivity(activity.getPackageManager()) != null) {
+                                File photoFile = null;
+                                try {
+                                    photoFile = create_image();
+                                    takePictureIntent.putExtra("PhotoPath", asw_cam_message);
+                                } catch (IOException ex) {
+                                    Log.e(TAG, "Image file creation failed", ex);
+                                }
+                                if (photoFile != null) {
+                                    asw_cam_message = "file:" + photoFile.getAbsolutePath();
+                                    takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photoFile));
+                                } else {
+                                    takePictureIntent = null;
+                                }
                             }
                         }
-                    }
-                    Intent contentSelectionIntent = new Intent(Intent.ACTION_GET_CONTENT);
-                    if(!ASWP_ONLYCAM) {
-                        contentSelectionIntent.addCategory(Intent.CATEGORY_OPENABLE);
-                        contentSelectionIntent.setType(ASWV_F_TYPE);
-                        if (ASWP_MULFILE) {
-                            contentSelectionIntent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+                        Intent contentSelectionIntent = new Intent(Intent.ACTION_GET_CONTENT);
+                        if (!ASWP_ONLYCAM) {
+                            contentSelectionIntent.addCategory(Intent.CATEGORY_OPENABLE);
+                            contentSelectionIntent.setType(ASWV_F_TYPE);
+                            if (ASWP_MULFILE) {
+                                contentSelectionIntent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+                            }
                         }
-                    }
-                    Intent[] intentArray;
-                    if (takePictureIntent != null) {
-                        intentArray = new Intent[]{takePictureIntent};
-                    } else {
-                        intentArray = new Intent[0];
-                    }
+                        Intent[] intentArray;
+                        if (takePictureIntent != null) {
+                            intentArray = new Intent[]{takePictureIntent};
+                        } else {
+                            intentArray = new Intent[0];
+                        }
 
-                    Intent chooserIntent = new Intent(Intent.ACTION_CHOOSER);
-                    chooserIntent.putExtra(Intent.EXTRA_INTENT, contentSelectionIntent);
-                    chooserIntent.putExtra(Intent.EXTRA_TITLE, "File Chooser");
-                    chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, intentArray);
-                    activity.startActivityForResult(chooserIntent, asw_file_req);
+                        Intent chooserIntent = new Intent(Intent.ACTION_CHOOSER);
+                        chooserIntent.putExtra(Intent.EXTRA_INTENT, contentSelectionIntent);
+                        chooserIntent.putExtra(Intent.EXTRA_TITLE, "File Chooser");
+                        chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, intentArray);
+                        activity.startActivityForResult(chooserIntent, asw_file_req);
+                    }
+                    return true;
+                }else{
+                    get_file();
+                    return false;
                 }
-                return true;
             }
 
             //Getting webview rendering progress
@@ -430,6 +436,12 @@ public class SmartWebViewCompact {
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             activity.startActivity(intent);
 
+            //Getting location for offline files
+        } else if (url.startsWith("offloc:")) {
+            String offloc = ASWV_URL + "?loc=" + get_location();
+            aswm_view(offloc,false);
+            Log.d("OFFLINE LOC REQ",offloc);
+
             //Opening external URLs in android default web browser
         } else if (ASWP_EXTURL && !aswm_host(url).contains(aswm_host(ASWV_URL))) {
             aswm_view(url,true);
@@ -485,7 +497,8 @@ public class SmartWebViewCompact {
     }
 
     //Using cookies to update user locations
-    public void get_location(){
+    public String get_location(){
+        String newloc = "0,0";
         //Checking for location permissions
         if (ASWP_LOCATION && ((Build.VERSION.SDK_INT >= 23 && check_permission(1)) || Build.VERSION.SDK_INT < 23)) {
             CookieManager cookieManager = CookieManager.getInstance();
@@ -496,9 +509,12 @@ public class SmartWebViewCompact {
             double longitude = gps.getLongitude();
             if (gps.canGetLocation()) {
                 if (latitude != 0 || longitude != 0) {
-                    cookieManager.setCookie(ASWV_URL, "lat=" + latitude);
-                    cookieManager.setCookie(ASWV_URL, "long=" + longitude);
+                    if(!ASWP_OFFLINE) {
+                        cookieManager.setCookie(ASWV_URL, "lat=" + latitude);
+                        cookieManager.setCookie(ASWV_URL, "long=" + longitude);
+                    }
                     //Log.w("New Updated Location:", latitude + "," + longitude);  //enable to test dummy latitude and longitude
+                    newloc = latitude + "," + longitude;
                 } else {
                     Log.w("New Updated Location:", "NULL");
                 }
@@ -507,6 +523,7 @@ public class SmartWebViewCompact {
                 Log.w("New Updated Location:", "FAIL");
             }
         }
+        return newloc;
     }
 
     //Checking if particular permission is given or not

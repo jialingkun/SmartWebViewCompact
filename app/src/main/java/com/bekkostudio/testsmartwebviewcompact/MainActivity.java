@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         smartWebViewCompact.ASWP_SPLASH      = true;    //enable splash screen
 
         //Configuration variables
-        smartWebViewCompact.ASWV_URL          = "https://google.com"; //complete URL of your website or webpage
+        smartWebViewCompact.ASWV_URL          = "https://bekkostudio.com/"; //complete URL of your website or webpage
         smartWebViewCompact.ASWV_F_TYPE       = "*/*";  //to upload any file type using "*/*"; check file type references for more
 
         //Rating system variables
